@@ -504,9 +504,11 @@
 
       .cards {
         grid-template-columns: 1fr;
+        
       }
 
       .card {
+        margin: 0 auto;
         padding: 18px;
       }
 
@@ -545,3 +547,5 @@
         grid-template-columns: 1fr;
       }
     }
+
+    

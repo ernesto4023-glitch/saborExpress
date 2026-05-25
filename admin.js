@@ -814,3 +814,10 @@ function eliminarFlyer(index) {
   guardarFlyers();
   mostrarFlyers();
 }
+
+window.editarProducto = editarProducto;
+window.eliminarProducto = eliminarProducto;
+window.editarCategoria = editarCategoria;
+window.eliminarCategoria = eliminarCategoria;
+window.editarFlyer = editarFlyer;
+window.eliminarFlyer = eliminarFlyer;
