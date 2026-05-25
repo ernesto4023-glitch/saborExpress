@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sabor Express</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <div class="logo-icon">🍔</div>
+            <div>
+                <h1>Sabor <span>Express</span></h1>
+                <p>Comida rápida y deliciosa</p>
+            </div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <nav id="navMenu">
+            <a href="#" class="active">🏠 Inicio</a>
+            <a href="#categorias">🍽️ Categorías</a>
+            <a href="#productos">🍔 Productos</a>
+            <a href="#registro">📋 Registro</a>
+            <a href="#contacto">📞 Contacto</a>
+        </nav>
+    </header>
+
+    <section class="hero-slider">
+        <div class="swiper heroSwiper">
+            <div class="swiper-wrapper" id="heroWrapper">
+
+            <!-- Slides dinámicos -->
+
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <section class="categories-section" id="categorias">
+        <h2>Explora nuestras categorías</h2>
+
+        <div class="categories-container">
+            <button class="category-arrow">‹</button>
+
+            <div class="categories-grid" id="contenedorCategorias">
+                <!-- Las categorías se cargan con JavaScript -->
+            </div>
+
+            <button class="category-arrow">›</button>
+        </div>
+    </section>
+
+    <section class="products" id="productos">
+        <h2>Nuestros productos</h2>
+
+        <div class="products-grid" id="contenedorProductos">
+            <!-- Los productos se cargan con JavaScript desde localStorage -->
+        </div>
+    </section>
+
+    <section class="info-bar">
+        <div class="info-item">
+            <div class="info-icon">🛵</div>
+            <div>
+                <h3>Entrega rápida</h3>
+                <p>Recibe tu pedido en tiempo récord.</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-icon">🏅</div>
+            <div>
+                <h3>Calidad garantizada</h3>
+                <p>Usamos ingredientes frescos y de calidad.</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-icon">💳</div>
+            <div>
+                <h3>Pago seguro</h3>
+                <p>Tus pagos están 100% protegidos.</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-icon">😊</div>
+            <div>
+                <h3>Clientes felices</h3>
+                <p>Miles de clientes satisfechos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contacto">
+        <h2>Contacto</h2>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <div>
+                    <h3>Dirección</h3>
+                    <p>Av. Siempre Viva 123<br>Ciudad de México, CP 12345</p>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon whatsapp">🟢</div>
+                <div>
+                    <h3>WhatsApp</h3>
+                    <p>55 9876 5432</p>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">🕒</div>
+                <div>
+                    <h3>Horario de atención</h3>
+                    <p>Lunes a Domingo<br>11:00 AM - 11:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-floating" id="btnCarrito">
+        <i class="bi bi-cart"></i>
+        <span id="cantidadCarrito">0</span>
+    </div>
+
+    <div class="cart-modal" id="modalCarrito">
+
+    <div class="cart-content">
+
+        <div class="cart-header">
+        <h2><i class="bi bi-cart"></i> Mi carrito</h2>
+
+        <button id="cerrarCarrito">
+            ×
+        </button>
+        </div>
+
+        <div class="cart-items" id="listaCarrito">
+        <!-- Productos -->
+        </div>
+
+        <div class="cart-footer">
+
+        <h3>
+            Total:
+            <span id="totalCarrito">$0</span>
+        </h3>
+
+        <button class="btn-checkout">
+            Finalizar pedido
+        </button>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-logo">
+            <div class="logo-icon">🍔</div>
+            <div>
+                <h2>Sabor <span>Express</span></h2>
+                <p>Comida rápida y deliciosa</p>
+            </div>
+        </div>
+
+        <div class="socials">
+            <span>f</span>
+            <span>◎</span>
+            <span>☏</span>
+        </div>
+
+        <p>© 2024 Sabor Express. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

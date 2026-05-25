@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Sabor Express</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+  <header class="top-header">
+    <div class="menu-icon">☰</div>
+
+    <div class="logo">
+      <div class="logo-icon">🍔</div>
+      <div>
+        <h1>Sabor <span>Express</span></h1>
+        <p>Comida rápida y deliciosa</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="title-row">
+      <div>
+        <h2>Dashboard</h2>
+        <p>Resumen general de tu tienda</p>
+      </div>
+      <div class="date-box">📅 20 de mayo de 2024</div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h3>Flyers principales</h3>
+        <button class="btn" id="btnAbrirModalFlyer">＋ Agregar flyer</button>
+      </div>
+
+      <div class="product-list" id="listaFlyers"></div>
+    </section>
+
+    <div class="modal" id="modalFlyer">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="tituloModalFlyer">Agregar flyer</h3>
+
+          <button class="close-btn" id="btnCerrarModalFlyer">
+            ×
+          </button>
+        </div>
+
+        <form id="formFlyer">
+
+          <input type="hidden" id="flyerEditando">
+
+          <label>Título principal</label>
+          <input
+            type="text"
+            id="tituloFlyer"
+            placeholder="Ej: EL SABOR QUE TE ENCANTA"
+          >
+
+          <label>Descripción</label>
+          <textarea
+            id="descripcionFlyer"
+            placeholder="Ej: Hamburguesas jugosas y papas crujientes"
+          ></textarea>
+
+          <label>Texto del botón</label>
+          <input
+            type="text"
+            id="textoBotonFlyer"
+            placeholder="Ej: Ver productos"
+          >
+
+          <label>Enlace del botón</label>
+          <input
+            type="text"
+            id="linkBotonFlyer"
+            placeholder="Ej: #productos"
+          >
+
+          <label>Imagen para escritorio</label>
+          <input
+            type="file"
+            id="imagenFlyerDesktop"
+            accept="image/*"
+          >
+
+          <label>Imagen para celular</label>
+          <input
+            type="file"
+            id="imagenFlyerMobile"
+            accept="image/*"
+          >
+
+          <button class="btn" type="submit">
+            💾 Guardar flyer
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+
+    <section class="cards">
+      <div class="card">
+        <div class="card-icon red">🍔</div>
+        <div class="card-data-info">
+          <h3>Productos</h3>
+          <strong id="totalProductos">0</strong>
+          <p>Total productos</p>
+          <a href="#">Ver todos →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon yellow">▦</div>
+        <div class="card-data-info">
+          <h3>Categorías</h3>
+          <strong id="totalCategorias">0</strong>
+          <p>Total categorías</p>
+          <a href="#">Ver todas →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon green">👁</div>
+        <div class="card-data-info">
+          <h3>Vistas (total)</h3>
+          <strong id="totalVisitas">0</strong>
+          <p>Total de vistas</p>
+          <a href="#">Ver estadísticas →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon blue">♡</div>
+        <div class="card-data-info">
+          <h3>Likes (total)</h3>
+          <strong id="totalLikes">0</strong>
+          <p>Total de likes</p>
+          <a href="#">Ver estadísticas →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h3>Productos recientes</h3>
+        <button class="btn" id="btnAbrirModalProducto">＋ Agregar producto</button>
+      </div>
+
+      <div class="product-list" id="listaProductos"></div>
+
+      <a class="link-more" href="#">Ver todos los productos →</a>
+    </section>
+
+    <div class="modal" id="modalProducto">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="tituloModalProducto">Agregar producto</h3>
+          <button class="close-btn" id="btnCerrarModalProducto">×</button>
+        </div>
+
+        <form id="formProducto">
+          <input type="hidden" id="productoEditando">
+
+          <label>Nombre del producto</label>
+          <input type="text" id="nombreProducto" placeholder="Ej: Hamburguesa Clásica">
+
+          <label>Categoría</label>
+          <select id="categoriaProducto">
+            <option value="">Seleccionar categoría</option>
+          </select>
+
+          <label>Precio</label>
+          <input type="number" id="precioProducto" placeholder="Ej: 85000">
+
+          <label>Imagen del producto</label>
+          <input type="file" id="imagenProducto" accept="image/*">
+          <button class="btn" type="submit">💾 Guardar producto</button>
+          
+        </form>
+      </div>
+    </div>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h3>Categorías</h3>
+        <button class="btn" id="btnAbrirModalCategoria">＋ Agregar categoría</button>
+      </div>
+
+      <div class="category-list" id="listaCategorias"></div>
+
+      <a class="link-more" href="#">Ver todas las categorías →</a>
+    </section>
+
+    <div class="modal" id="modalCategoria">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="tituloModalCategoria">Agregar categoría</h3>
+          <button class="close-btn" id="btnCerrarModalCategoria">×</button>
+        </div>
+
+        <form id="formCategoria">
+          <input type="hidden" id="categoriaEditando">
+          <label>Imagen de la categoría</label>
+          <input type="file" id="imagenCategoria" accept="image/*">
+
+          <button class="btn" type="submit">💾 Guardar categoría</button>
+        </form>
+      </div>
+    </div>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h3>Vistas y Likes (estadísticas)</h3>
+        <button class="icon-btn">⌄</button>
+      </div>
+
+      <div class="chart">
+        <div class="line-red"></div>
+        <div class="line-yellow"></div>
+      </div>
+
+      <div class="stats-bottom">
+        <div class="stat-box">
+          <span>👁</span>
+          <strong>1,248</strong>
+          <p>Total de vistas</p>
+        </div>
+
+        <div class="stat-box">
+          <span>♡</span>
+          <strong>324</strong>
+          <p>Total de likes</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2024 Sabor Express. Todos los derechos reservados.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="admin.js"></script>
+</body>
+
+</html>
