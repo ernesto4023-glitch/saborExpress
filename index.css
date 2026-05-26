@@ -392,6 +392,7 @@ footer {
   cursor: pointer;
   transition: .3s;
   position: relative;
+  width: 180px;
 }
 
 .category-card:hover {

@@ -20,6 +20,13 @@
       position: relative;
     }
 
+    .top-header a{
+      text-decoration: none;
+    }
+    .top-header p{
+      color: white;
+    }
+
     .menu-icon {
       position: absolute;
       left: 20px;
@@ -504,7 +511,6 @@
 
       .cards {
         grid-template-columns: 1fr;
-        
       }
 
       .card {
@@ -547,5 +553,3 @@
         grid-template-columns: 1fr;
       }
     }
-
-    
