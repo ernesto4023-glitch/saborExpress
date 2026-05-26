@@ -233,24 +233,14 @@ function agregarAlCarrito(nombreProducto) {
     producto => producto.nombre === nombreProducto
   );
 
-  if (!producto) return;
-
-  const stockDisponible = Number(producto.stock ?? 0);
+  if (!producto) {
+    console.log("Producto no encontrado:", nombreProducto);
+    return;
+  }
 
   const existe = carrito.find(
     item => item.nombre === producto.nombre
   );
-
-  const cantidadActual = existe ? existe.cantidad : 0;
-
-  if (cantidadActual + 1 > stockDisponible) {
-    Swal.fire({
-      icon: "warning",
-      title: "Stock insuficiente",
-      text: `No queda más stock disponible de ${producto.nombre}.`
-    });
-    return;
-  }
 
   if (existe) {
     existe.cantidad += 1;
@@ -281,128 +271,67 @@ function guardarCarrito() {
 
   mostrarCarrito();
 }
-
 function mostrarCarrito() {
+  const lista = document.querySelector("#listaCarrito");
+  const total = document.querySelector("#totalCarrito");
+  const cantidad = document.querySelector("#cantidadCarrito");
 
-  const lista =
-    document.querySelector("#listaCarrito");
-
-  const total =
-    document.querySelector("#totalCarrito");
-
-  const cantidad =
-    document.querySelector("#cantidadCarrito");
-
-  if (!lista) return;
+  if (!lista || !total || !cantidad) return;
 
   lista.innerHTML = "";
 
   let totalGeneral = 0;
   let totalCantidad = 0;
 
+  if (carrito.length === 0) {
+    lista.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío.</p>`;
+  }
+
   carrito.forEach((item, index) => {
-
-    totalGeneral += item.precio * item.cantidad;
-
+    totalGeneral += Number(item.precio) * item.cantidad;
     totalCantidad += item.cantidad;
 
     lista.innerHTML += `
-
       <div class="cart-item">
-
-        <img src="${item.imagen}">
+        <img src="${item.imagen}" alt="${item.nombre}">
 
         <div class="cart-item-info">
-
           <h4>${item.nombre}</h4>
-
-          <p>
-            $${item.precio.toLocaleString("es-CO")}
-          </p>
+          <p>$${Number(item.precio).toLocaleString("es-CO")}</p>
 
           <div class="cart-quantity">
-
-            <button onclick="disminuirCantidad(${index})">
-              −
-            </button>
-
+            <button onclick="disminuirCantidad(${index})">−</button>
             <span>${item.cantidad}</span>
-
-            <button onclick="aumentarCantidad(${index})">
-              +
-            </button>
-
+            <button onclick="aumentarCantidad(${index})">+</button>
           </div>
 
           <div class="cart-item-price">
-            $${(item.precio * item.cantidad)
-              .toLocaleString("es-CO")}
+            $${(Number(item.precio) * item.cantidad).toLocaleString("es-CO")}
           </div>
-
         </div>
 
-        <button
-          class="btn-remove"
-          onclick="eliminarProductoCarrito(${index})"
-        >
+        <button class="btn-remove" onclick="eliminarProductoCarrito(${index})">
           ×
         </button>
-
       </div>
-
     `;
   });
 
-  total.textContent =
-    `$${totalGeneral.toLocaleString("es-CO")}`;
-
-  cantidad.textContent =
-    totalCantidad;
+  total.textContent = `$${totalGeneral.toLocaleString("es-CO")}`;
+  cantidad.textContent = totalCantidad;
 }
 
-mostrarCarrito();
-
-const btnCarrito =
-  document.querySelector("#btnCarrito");
-
-const modalCarrito =
-  document.querySelector("#modalCarrito");
-
-const cerrarCarrito =
-  document.querySelector("#cerrarCarrito");
-
-btnCarrito.addEventListener("click", () => {
-  modalCarrito.classList.add("active");
-});
-
-cerrarCarrito.addEventListener("click", () => {
-  modalCarrito.classList.remove("active");
-});
+function guardarCarrito() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  mostrarCarrito();
+}
 
 function aumentarCantidad(index) {
-  const item = carrito[index];
-
-  const productoOriginal = productos.find(
-    producto => producto.nombre === item.nombre
-  );
-
-  const stockDisponible = Number(productoOriginal?.stock ?? 0);
-
-  if (item.cantidad + 1 > stockDisponible) {
-    Swal.fire({
-      icon: "warning",
-      title: "Stock insuficiente",
-      text: `No queda más stock disponible de ${item.nombre}.`
-    });
-    return;
-  }
-
-  item.cantidad++;
+  carrito[index].cantidad++;
   guardarCarrito();
 }
 
 function disminuirCantidad(index) {
-
   carrito[index].cantidad--;
 
   if (carrito[index].cantidad <= 0) {
@@ -413,8 +342,28 @@ function disminuirCantidad(index) {
 }
 
 function eliminarProductoCarrito(index) {
-
   carrito.splice(index, 1);
-
   guardarCarrito();
 }
+
+const btnCarrito = document.querySelector("#btnCarrito");
+const modalCarrito = document.querySelector("#modalCarrito");
+const cerrarCarrito = document.querySelector("#cerrarCarrito");
+
+if (btnCarrito && modalCarrito) {
+  btnCarrito.addEventListener("click", () => {
+    modalCarrito.classList.add("active");
+  });
+}
+
+if (cerrarCarrito && modalCarrito) {
+  cerrarCarrito.addEventListener("click", () => {
+    modalCarrito.classList.remove("active");
+  });
+}
+
+window.aumentarCantidad = aumentarCantidad;
+window.disminuirCantidad = disminuirCantidad;
+window.eliminarProductoCarrito = eliminarProductoCarrito;
+
+mostrarCarrito();
