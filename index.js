@@ -367,3 +367,67 @@ window.disminuirCantidad = disminuirCantidad;
 window.eliminarProductoCarrito = eliminarProductoCarrito;
 
 mostrarCarrito();
+
+function finalizarPedidoWhatsApp() {
+  const contactoPedido =
+    JSON.parse(localStorage.getItem("contactoPedido")) || {
+      whatsapp: ""
+    };
+
+  if (!contactoPedido.whatsapp) {
+    Swal.fire({
+      icon: "warning",
+      title: "WhatsApp no configurado",
+      text: "El negocio aún no ha configurado un número de WhatsApp."
+    });
+    return;
+  }
+
+  if (carrito.length === 0) {
+    Swal.fire({
+      icon: "warning",
+      title: "Carrito vacío",
+      text: "Agrega productos antes de finalizar el pedido."
+    });
+    return;
+  }
+
+  let mensaje = "Hola, quiero hacer este pedido:%0A%0A";
+  let total = 0;
+
+  carrito.forEach(item => {
+    const subtotal = Number(item.precio) * item.cantidad;
+    total += subtotal;
+
+    mensaje += `• ${item.nombre} x${item.cantidad} - $${subtotal.toLocaleString("es-CO")}%0A`;
+  });
+
+  mensaje += `%0ATotal: $${total.toLocaleString("es-CO")}`;
+
+  const url = `https://wa.me/${contactoPedido.whatsapp}?text=${mensaje}`;
+
+  window.open(url, "_blank");
+
+  Swal.fire({
+    icon: "success",
+    title: "Pedido enviado",
+    text: "Tu pedido fue enviado correctamente por WhatsApp.",
+    confirmButtonText: "Listo",
+    confirmButtonColor: "#d60000"
+  }).then(() => {
+    carrito = [];
+    guardarCarrito();
+
+    const modalCarrito = document.querySelector("#modalCarrito");
+
+    if (modalCarrito) {
+      modalCarrito.classList.remove("active");
+    }
+  });
+}
+
+const btnFinalizarPedido = document.querySelector("#btnFinalizarPedido");
+
+if (btnFinalizarPedido) {
+  btnFinalizarPedido.addEventListener("click", finalizarPedidoWhatsApp);
+}

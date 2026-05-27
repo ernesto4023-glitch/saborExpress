@@ -821,3 +821,108 @@ window.editarCategoria = editarCategoria;
 window.eliminarCategoria = eliminarCategoria;
 window.editarFlyer = editarFlyer;
 window.eliminarFlyer = eliminarFlyer;
+
+/*AGREGAR WHATSAPP */
+
+let contactoPedido =
+  JSON.parse(localStorage.getItem("contactoPedido")) || {
+    whatsapp: ""
+  };
+
+const modalContacto = document.querySelector("#modalContacto");
+const btnAbrirModalContacto = document.querySelector("#btnAbrirModalContacto");
+const btnCerrarModalContacto = document.querySelector("#btnCerrarModalContacto");
+const formContacto = document.querySelector("#formContacto");
+
+function guardarContactoPedido() {
+  localStorage.setItem("contactoPedido", JSON.stringify(contactoPedido));
+}
+
+function abrirModalContacto() {
+  modalContacto.classList.add("active");
+  document.querySelector("#whatsappNegocio").value =
+    contactoPedido.whatsapp || "";
+}
+
+function cerrarModalContacto() {
+  modalContacto.classList.remove("active");
+}
+
+function mostrarContactoPedido() {
+  const contenedor = document.querySelector("#infoContactoPedido");
+
+  if (!contenedor) return;
+
+  if (!contactoPedido.whatsapp) {
+    contenedor.innerHTML = `
+      <div class="product-item">
+        <div class="product-name">Sin contacto configurado</div>
+        <div class="product-cat">Agrega el WhatsApp para recibir pedidos.</div>
+      </div>
+    `;
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <div class="product-item">
+      <div class="cat-icon">📲</div>
+
+      <div>
+        <div class="product-name">WhatsApp configurado</div>
+        <div class="product-cat">+${contactoPedido.whatsapp}</div>
+      </div>
+
+      <div></div>
+
+      <div class="actions">
+        <button class="icon-btn edit" onclick="abrirModalContacto()">✎</button>
+      </div>
+    </div>
+  `;
+}
+
+if (btnAbrirModalContacto) {
+  btnAbrirModalContacto.addEventListener("click", abrirModalContacto);
+}
+
+if (btnCerrarModalContacto) {
+  btnCerrarModalContacto.addEventListener("click", cerrarModalContacto);
+}
+
+if (formContacto) {
+  formContacto.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const whatsapp = document
+      .querySelector("#whatsappNegocio")
+      .value
+      .replace(/\D/g, "");
+
+    if (!whatsapp) {
+      Swal.fire({
+        icon: "warning",
+        title: "Número requerido",
+        text: "Agrega el número de WhatsApp del negocio."
+      });
+      return;
+    }
+
+    contactoPedido.whatsapp = whatsapp;
+
+    guardarContactoPedido();
+    mostrarContactoPedido();
+    cerrarModalContacto();
+
+    Swal.fire({
+      icon: "success",
+      title: "Contacto guardado",
+      text: "El WhatsApp del negocio fue guardado correctamente.",
+      timer: 1600,
+      showConfirmButton: false
+    });
+  });
+}
+
+mostrarContactoPedido();
+
+window.abrirModalContacto = abrirModalContacto;

@@ -68,6 +68,36 @@
       </div>
     </section>
 
+    <section class="panel">
+      <div class="panel-header">
+        <h3>Contacto para pedidos</h3>
+        <button class="btn" id="btnAbrirModalContacto">＋ Agregar contacto</button>
+      </div>
+
+      <div class="product-list" id="infoContactoPedido"></div>
+    </section>
+
+    <div class="modal" id="modalContacto">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Agregar contacto de WhatsApp</h3>
+          <button class="close-btn" id="btnCerrarModalContacto">×</button>
+        </div>
+
+        <form id="formContacto">
+          <label>Número de WhatsApp del negocio</label>
+          <input
+            type="text"
+            id="whatsappNegocio"
+            placeholder="Ej: 573001234567"
+          >
+
+          <button class="btn" type="submit">
+            💾 Guardar contacto
+          </button>
+        </form>
+      </div>
+    </div>
     
     <section class="title-row">
       <div>
